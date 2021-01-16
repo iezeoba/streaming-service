@@ -7,7 +7,7 @@ import {
 } from "../constants/constants"; //multi-line imports//
 import _ from "lodash";
 
-export const streamReducer = (state = {}, action) => {
+const streamReducer = (state = {}, action) => {
   switch (action.type) {
     case FETCH_STREAMS:
       return { ...state, ..._.mapKeys(action.payload, "id") };
@@ -23,3 +23,7 @@ export const streamReducer = (state = {}, action) => {
       return state;
   }
 };
+
+export default streamReducer;
+//using export default here for the reducer//
+//either export default or named export can be used//

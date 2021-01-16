@@ -15,3 +15,6 @@ export const authReducer = (state = INITIAl_STATE, action) => {
       return state;
   }
 };
+
+//using named export here for the reducer//
+//either named export or export default can be used//

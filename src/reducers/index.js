@@ -2,7 +2,8 @@ import { combineReducers } from "redux";
 import { authReducer } from "./authReducer";
 // import { reducer } from 'redux-form'; //this is the normal way to import the form reducer//
 import { reducer as formReducer } from "redux-form"; //this is to avoid ambiguity. see note at footer//
-import { streamReducer } from "./streamReducer";
+import streamReducer from "./streamReducer";
+
 export default combineReducers({
   auth: authReducer,
   form: formReducer,
