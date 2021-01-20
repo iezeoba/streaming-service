@@ -1,28 +1,35 @@
-import { BrowserRouter, Route } from "react-router-dom";
+// import { BrowserRouter, Route } from "react-router-dom"; //BrowerRouter no longer used//
+import { Router, Route } from "react-router-dom"; //Router instead of BrowserRouter//
 import StreamList from "./components/streams/StreamList";
-import StreamCreate from "./components/streams/StreamCreate";
+import StreamCreate from "./components/streams/StreamCreateInitial";
 import StreamDelete from "./components/streams/StreamDelete";
 import StreamEdit from "./components/streams/StreamEdit";
 import StreamShow from "./components/streams/StreamShow";
 import "./App.css";
 import Header from "./components/Header";
+import history from "./history";
 
 const App = () => {
   return (
     <div className="ui container">
-      <BrowserRouter>
+      {/* <BrowserRouter history={history}> we are using Router instead of BrowserRouter to enable us track our history manually*/}
+      <Router history={history}>
         <div>
           <Header />
           <Route path="/" exact component={StreamList} />
-          <Route path="/streams/new" component={StreamCreate} />
-          <Route path="/streams/edit" component={StreamEdit} />
-          <Route path="/streams/delete" component={StreamDelete} />
-          <Route path="/streams/show" component={StreamShow} />
+          <Route path="/streams/new" exact component={StreamCreate} />
+          <Route path="/streams/edit/:id" exact component={StreamEdit} />
+          <Route path="/streams/delete/:id" exact component={StreamDelete} />
+          <Route path="/streams/:id" exact component={StreamShow} />
         </div>
-      </BrowserRouter>
+      </Router>
+      {/* </BrowserRouter> */}
     </div>
   );
 };
+//use the <Switch> tag to wrap the <Routes> right after the <Header> tag//
+//this resolves route conflict and renders the first matching path//
+//for some reason, I didn't encounter the route issue//
 
 //******************Example*************************************************//
 // function Pageone() {

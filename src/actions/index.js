@@ -8,6 +8,7 @@ import {
   DELETE_STREAM,
 } from "../constants/constants"; //multi-line imports//
 import streams from "../api/streams";
+import history from "../history";
 
 export const signIn = (userId) => {
   return {
@@ -23,10 +24,12 @@ export const signOut = () => {
 };
 
 export const createStream = (formValues) => {
-  return async (dispatch) => {
-    const response = await streams.post("/streams", formValues);
+  return async (dispatch, getState) => {
+    const { userId } = getState().auth;
+    const response = await streams.post("/streams", { ...formValues, userId });
 
     dispatch({ type: CREATE_STREAM, payload: response.data });
+    history.push("/"); //here we programmatically redirected navigation on form submission and successful network call//
   };
 };
 
@@ -37,7 +40,7 @@ export const createStream = (formValues) => {
 // };
 
 export const fetchStreams = () => async (dispatch) => {
-  const response = streams.get("/streams");
+  const response = await streams.get("/streams");
   dispatch({ type: FETCH_STREAMS, payload: response.data });
 };
 
@@ -47,11 +50,13 @@ export const fetchStream = (id) => async (dispatch) => {
 };
 
 export const editStream = (id, formValues) => async (dispatch) => {
-  const response = await streams.put(`/streams/${id}`, formValues);
+  const response = await streams.patch(`/streams/${id}`, formValues);
   dispatch({ type: EDIT_STREAM, payload: response.data });
+  history.push("/");
 };
 
 export const deleteStream = (id) => async (dispatch) => {
   await streams.delete(`/streams/${id}`);
   dispatch({ type: DELETE_STREAM, payload: id });
+  history.push("/");
 };

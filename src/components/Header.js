@@ -21,5 +21,5 @@ const Header = () => {
 };
 
 export default Header;
-//GoogleAuth is designed to manage state with react//
-//GoogleAuthRedux is designed to manage state with redux//
+//our GoogleAuth component is designed to manage state with react//
+//our GoogleAuthRedux component is designed to manage state with redux//
