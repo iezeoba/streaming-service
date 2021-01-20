@@ -1,22 +1,19 @@
+//this component is no longer used as we rewrote codes for resusability with 'StreamForm'//
 import React from "react";
 import { connect } from "react-redux";
 import { fetchStream } from "../../actions";
 
-class StreamShow extends React.Component {
+class StreamEdit extends React.Component {
   componentDidMount() {
     this.props.fetchStream(this.props.match.params.id);
   }
+
   render() {
+    console.log(this.props);
     if (!this.props.stream) {
       return <div>Loading...</div>;
     }
-    const { title, description } = this.props.stream; //destructured
-    return (
-      <div>
-        <h1>{title}</h1>
-        <h5>{description}</h5>
-      </div>
-    );
+    return <div>{this.props.stream.title}</div>;
   }
 }
 
@@ -24,4 +21,4 @@ const mapStateToProps = (state, ownProps) => {
   return { stream: state.streams[ownProps.match.params.id] };
 };
 
-export default connect(mapStateToProps, { fetchStream })(StreamShow);
+export default connect(mapStateToProps, { fetchStream })(StreamEdit);
